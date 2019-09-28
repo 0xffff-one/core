@@ -13,6 +13,7 @@ namespace Flarum\User;
 
 use Carbon\Carbon;
 use DomainException;
+use Flarum\Foundation\Application;
 use Flarum\Database\AbstractModel;
 use Flarum\Database\ScopeVisibilityTrait;
 use Flarum\Event\ConfigureUserPreferences;
@@ -294,7 +295,8 @@ class User extends AbstractModel
     public function getAvatarUrlAttribute(string $value = null)
     {
         if ($value && strpos($value, '://') === false) {
-            return app(UrlGenerator::class)->to('forum')->path('assets/avatars/'.$value);
+            return app(Application::class)->cdnUrl('assets/avatars/'.$value);
+            // return app(UrlGenerator::class)->to('forum')->path('assets/avatars/'.$value);
         }
 
         return $value;

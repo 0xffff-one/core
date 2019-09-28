@@ -167,6 +167,34 @@ class Application extends Container implements ApplicationContract
     }
 
     /**
+     * Get the URL to the Flarum installation.
+     * CDN Support
+     *
+     * @param string $path
+     * @return string
+     */
+    public function cdnUrl($path = null)
+    {
+        $config = $this->make('flarum.config');
+        $url = array_get($config, 'cdnUrl', false);
+        if (!$url) return $this->url($path);
+
+        if (is_array($url)) {
+            if (isset($url[$path])) {
+                return $url[$path];
+            }
+
+            $url = $url['base'];
+        }
+
+        if ($path) {
+            $url .= '/'.array_get($config, "paths.$path", $path);
+        }
+
+        return $url;
+    }
+
+    /**
      * Get the version number of the application.
      *
      * @return string

@@ -454,6 +454,8 @@ class Discussion extends AbstractModel
     protected function setTitleAttribute($title)
     {
         $this->attributes['title'] = $title;
-        $this->slug = Str::slug($title);
+        // $this->slug = Str::slug($title);
+        // 中文环境不需要 slug
+        $this->slug = '';
     }
 }
