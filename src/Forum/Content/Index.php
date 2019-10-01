@@ -56,12 +56,12 @@ class Index
             'page' => ['offset' => ($page - 1) * 20, 'limit' => 20]
         ];
 
-        // note: 去掉 ApiDocument 的 payload，大幅度缩小首屏体积
-        // $apiDocument = $this->getApiDocument($request->getAttribute('actor'), $params);
-        $apiDocument = '';
+        $apiDocument = $this->getApiDocument($request->getAttribute('actor'), $params);
 
         $document->content = $this->view->make('flarum.forum::frontend.content.index', compact('apiDocument', 'page'));
-        $document->payload['apiDocument'] = $apiDocument;
+        // note: 去掉 ApiDocument 的 payload，大幅度缩小首屏体积
+        // $document->payload['apiDocument'] = $apiDocument;
+        $document->payload['apiDocument'] = '';
 
         return $document;
     }
