@@ -120,6 +120,7 @@ export default class DiscussionPage extends Page {
 
     if (this.discussion) {
       app.setTitle(this.discussion.title());
+      app.setTitleCount(0);
     }
   }
 
@@ -168,7 +169,6 @@ export default class DiscussionPage extends Page {
     this.discussion = discussion;
 
     app.history.push('discussion', discussion.title());
-    app.setTitleCount(0);
 
     // When the API responds with a discussion, it will also include a number of
     // posts. Some of these posts are included because they are on the first
