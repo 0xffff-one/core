@@ -75,7 +75,9 @@ class Index
         $defaultRoute = $this->settings->get('default_route');
 
         $document->content = $this->view->make('flarum.forum::frontend.content.index', compact('apiDocument', 'page'));
-        $document->payload['apiDocument'] = $apiDocument;
+        // note: 去掉 ApiDocument 的 payload，大幅度缩小首屏体积
+        // $document->payload['apiDocument'] = $apiDocument;
+        $document->payload['apiDocument'] = '';
         $document->canonicalUrl = $defaultRoute === '/all' ? $this->url->to('forum')->base() : $request->getUri()->withQuery('');
 
         return $document;

@@ -24,9 +24,9 @@ export default function humanTime(time) {
   // in the string. If it wasn't this year, we'll show the year as well.
   if (diff < -30 * day) {
     if (m.year() === moment().year()) {
-      ago = m.format('D MMM');
+      ago = m.format('YY/MM/DD');
     } else {
-      ago = m.format('MMM \'YY');
+      ago = m.format('YYYY/MM');
     }
   } else {
     ago = m.fromNow();
