@@ -4,6 +4,10 @@
     <head>
         <meta charset="utf-8">
         <title>{{ $title }}</title>
+        <link rel="dns-prefetch" href="//static.0xffff.one"/>
+        <link rel="dns-prefetch" href="//0xffff-1251477793.file.myqcloud.com"/>
+        <link rel="dns-prefetch" href="//0xffff-cdn.iscnu.net"/>
+        <link rel="dns-prefetch" href="//cdn.jsdelivr.net"/>
         <link rel="manifest" href="/manifest.json">
         {!! $head !!}
     </head>
