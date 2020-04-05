@@ -9,7 +9,7 @@ import humanTimeUtil from '../utils/humanTime';
  * @return {Object}
  */
 export default function humanTime(time) {
-  const mo = dayjs(time);
+  const mo = moment(time);
 
   const datetime = mo.format();
   const full = mo.format('LLLL');
