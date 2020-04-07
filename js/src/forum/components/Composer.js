@@ -92,6 +92,14 @@ class Composer extends Component {
       return (this.component && this.component.preventExit()) || undefined;
     };
 
+    // 若用户需要退出，则完全清除
+    window.onunload = () => {
+      if ((this.component && this.component.preventExit())) {
+        localStorage.removeItem('last-edit-text');
+        localStorage.removeItem('last-edit-title');
+      }
+    };
+
     const handlers = {};
 
     $(window).on('resize', handlers.onresize = this.updateHeight.bind(this)).resize();
@@ -365,6 +373,8 @@ class Composer extends Component {
    */
   close() {
     if (!this.preventExit()) {
+      localStorage.removeItem('last-edit-title');
+      localStorage.removeItem('last-edit-text');
       this.hide();
     }
   }

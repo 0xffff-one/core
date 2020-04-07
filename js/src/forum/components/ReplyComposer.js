@@ -37,6 +37,7 @@ export default class ReplyComposer extends ComposerBody {
     props.placeholder = props.placeholder || extractText(app.translator.trans('core.forum.composer_reply.body_placeholder'));
     props.submitLabel = props.submitLabel || app.translator.trans('core.forum.composer_reply.submit_button');
     props.confirmExit = props.confirmExit || extractText(app.translator.trans('core.forum.composer_reply.discard_confirmation'));
+    props.originalContent = props.originalContent || localStorage.getItem('last-edit-text');
   }
 
   headerItems() {
@@ -109,6 +110,7 @@ export default class ReplyComposer extends ComposerBody {
         }
 
         app.composer.hide();
+        localStorage.removeItem('last-edit-text');
       },
       this.loaded.bind(this)
     );
