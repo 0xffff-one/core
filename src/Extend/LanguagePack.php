@@ -55,6 +55,9 @@ class LanguagePack implements ExtenderInterface, LifecycleInterface
         );
     }
 
+    /**
+     * 大概 60ms
+     */
     private function registerLocale(LocaleManager $locales, Extension $extension, $locale, $title)
     {
         $locales->addLocale($locale, $title);
@@ -76,7 +79,8 @@ class LanguagePack implements ExtenderInterface, LifecycleInterface
         }
 
         foreach (new DirectoryIterator($directory) as $file) {
-            if ($file->isFile() && in_array($file->getExtension(), ['yml', 'yaml'])) {
+            // $file->isFile() 有系统调用，耗时较长
+            if (in_array($file->getExtension(), ['yml', 'yaml'])) {
                 $locales->addTranslations($locale, $file->getPathname());
             }
         }
