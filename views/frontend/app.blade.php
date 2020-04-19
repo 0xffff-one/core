@@ -26,7 +26,7 @@
         {!! $js !!}
 
         <script>
-            function loadingError() {
+            function loadingError(e) {
                 var error = document.getElementById('flarum-loading-error');
                 error.innerHTML += document.getElementById('flarum-content').textContent;
                 error.style.display = 'block';
