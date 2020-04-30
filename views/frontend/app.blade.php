@@ -3,6 +3,7 @@
       @if ($language) lang="{{ $language }}" @endif>
     <head>
         <meta charset="utf-8">
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <title>{{ $title }}</title>
         <link rel="dns-prefetch" href="//static.0xffff.one"/>
         <link rel="dns-prefetch" href="//0xffff-1251477793.file.myqcloud.com"/>
