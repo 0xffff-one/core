@@ -175,6 +175,7 @@ export default class TextEditor extends Component {
     this.props.onchange(this.value());
 
     m.redraw.strategy('none');
+    localStorage.setItem('last-edit-text', value);
   }
 
   /**

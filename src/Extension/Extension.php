@@ -287,20 +287,23 @@ class Extension implements Arrayable
     {
         $filename = "{$this->path}/extend.php";
 
-        if (file_exists($filename)) {
-            return $filename;
-        }
+        // 改：每次都 exists 会有性能问题，特别是扩展变多的时候
+        return $filename;
 
-        // To give extension authors some time to migrate to the new extension
-        // format, we will also fallback to the old bootstrap.php name. Consider
-        // this feature deprecated.
-        $deprecatedFilename = "{$this->path}/bootstrap.php";
+        // if (file_exists($filename)) {
+        //     return $filename;
+        // }
 
-        if (file_exists($deprecatedFilename)) {
-            return $deprecatedFilename;
-        }
+        // // To give extension authors some time to migrate to the new extension
+        // // format, we will also fallback to the old bootstrap.php name. Consider
+        // // this feature deprecated.
+        // $deprecatedFilename = "{$this->path}/bootstrap.php";
 
-        return null;
+        // if (file_exists($deprecatedFilename)) {
+        //     return $deprecatedFilename;
+        // }
+
+        // return null;
     }
 
     /**

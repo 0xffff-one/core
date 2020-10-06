@@ -31,22 +31,18 @@
                 var error = document.getElementById('flarum-loading-error');
                 error.innerHTML += document.getElementById('flarum-content').textContent;
                 error.style.display = 'block';
+                document.getElementById('flarum-loading').style.display = 'none';
                 throw e;
             }
-            try {
-                flarum.core.app.load(@json($payload));
-            } catch (e) {
-                loadingError(e);
-            }
-            setTimeout(function () {
-                document.getElementById('flarum-loading').style.display = 'none';
-                try {
-                    flarum.core.app.bootExtensions(flarum.extensions);
-                    flarum.core.app.boot();
-                } catch (e) {
-                    loadingError(e);
-                }
-            }, 0);
+            fetch('/payload').then(r => r.json())
+              .then((payload) => {
+                  flarum.core.app.load(payload);
+                  history.replaceState({}, '', '/');
+                  document.getElementById('flarum-loading').style.display = 'none';
+                  flarum.core.app.bootExtensions(flarum.extensions);
+                  flarum.core.app.boot();
+              })
+              .catch(loadingError);
         </script>
 
         {!! $foot !!}

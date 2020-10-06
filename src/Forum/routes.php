@@ -20,6 +20,18 @@ return function (RouteCollection $map, RouteHandlerFactory $route) {
     );
 
     $map->get(
+        '/app-shell',
+        'app-shell',
+        $route->toForum(Content\AppShell::class)
+    );
+
+    $map->get(
+        '/payload',
+        'app-shell.payload',
+        $route->toForum(Content\AppShellPayload::class)
+    );
+
+    $map->get(
         '/d/{id:\d+(?:-[^/]*)?}[/{near:[^/]*}]',
         'discussion',
         $route->toForum(Content\Discussion::class)

@@ -200,7 +200,7 @@ class Document implements Renderable
     protected function makeHead(): string
     {
         $head = array_map(function ($url) {
-            return '<link rel="stylesheet" href="'.e($url).'">';
+            return '<link rel="stylesheet" href="'.e($url).'" crossorigin="anonymous">';
         }, $this->css);
 
         if ($this->canonicalUrl) {
@@ -220,7 +220,7 @@ class Document implements Renderable
     protected function makeJs(): string
     {
         return implode("\n", array_map(function ($url) {
-            return '<script src="'.e($url).'"></script>';
+            return '<script src="'.e($url).'" crossorigin="anonymous"></script>';
         }, $this->js));
     }
 

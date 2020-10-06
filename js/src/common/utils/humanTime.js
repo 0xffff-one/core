@@ -6,8 +6,8 @@
  * @return {String}
  */
 export default function humanTime(time) {
-  let m = moment(time);
-  const now = moment();
+  let m = dayjs(time);
+  const now = dayjs();
 
   // To prevent showing things like "in a few seconds" due to small offsets
   // between client and server time, we always reset future dates to the
@@ -17,16 +17,16 @@ export default function humanTime(time) {
   }
 
   const day = 864e5;
-  const diff = m.diff(moment());
+  const diff = m.diff(dayjs());
   let ago = null;
 
   // If this date was more than a month ago, we'll show the name of the month
   // in the string. If it wasn't this year, we'll show the year as well.
   if (diff < -30 * day) {
-    if (m.year() === moment().year()) {
-      ago = m.format('D MMM');
+    if (m.year() === dayjs().year()) {
+      ago = m.format('YY/MM/DD');
     } else {
-      ago = m.format('ll');
+      ago = m.format('YYYY/MM');
     }
   } else {
     ago = m.fromNow();

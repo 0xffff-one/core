@@ -134,14 +134,19 @@ class Formatter
      */
     protected function configureExternalLinks(Configurator $configurator)
     {
-        $dom = $configurator->tags['URL']->template->asDOM();
-
-        foreach ($dom->getElementsByTagName('a') as $a) {
-            $rel = $a->getAttribute('rel');
-            $a->setAttribute('rel', "$rel nofollow ugc");
-        }
-
-        $dom->saveChanges();
+        // Ignore internal links in a post
+        $baseURL = app()->url();
+        $tag = $configurator->tags['URL'];
+        $tag->template = <<<EOT
+<xsl:choose>
+    <xsl:when test="starts-with(@url, '$baseURL')">
+        <a href="{@url}"><xsl:copy-of select="@title"/><xsl:apply-templates/></a>
+    </xsl:when>
+    <xsl:otherwise>
+        <a href="{@url}" target="_blank" rel="nofollow"><xsl:copy-of select="@title"/><xsl:apply-templates/></a>
+    </xsl:otherwise>
+</xsl:choose>
+EOT;
     }
 
     /**

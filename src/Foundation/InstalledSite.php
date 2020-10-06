@@ -176,7 +176,7 @@ class InstalledSite implements SiteInterface
                     'flarum-assets' => [
                         'driver' => 'local',
                         'root'   => $this->paths['public'].'/assets',
-                        'url'    => $app->url('assets')
+                        'url'    => $app->cdnUrl('assets')
                     ],
                     'flarum-avatars' => [
                         'driver' => 'local',

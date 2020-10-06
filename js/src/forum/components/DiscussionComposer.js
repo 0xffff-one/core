@@ -21,12 +21,13 @@ export default class DiscussionComposer extends ComposerBody {
      *
      * @type {Function}
      */
-    this.title = m.prop('');
+    this.title = m.prop(localStorage.getItem('last-edit-title') || '');
   }
 
   static initProps(props) {
     super.initProps(props);
 
+    props.originalContent = props.originalContent || localStorage.getItem('last-edit-text');
     props.placeholder = props.placeholder || extractText(app.translator.trans('core.forum.composer_discussion.body_placeholder'));
     props.submitLabel = props.submitLabel || app.translator.trans('core.forum.composer_discussion.submit_button');
     props.confirmExit = props.confirmExit || extractText(app.translator.trans('core.forum.composer_discussion.discard_confirmation'));
@@ -45,6 +46,7 @@ export default class DiscussionComposer extends ComposerBody {
         <input
           className="FormControl"
           value={this.title()}
+          onchange={(ev) => localStorage.setItem('last-edit-title', ev.currentTarget.value)}
           oninput={m.withAttr('value', this.title)}
           placeholder={this.props.titlePlaceholder}
           disabled={!!this.props.disabled}
@@ -100,6 +102,10 @@ export default class DiscussionComposer extends ComposerBody {
         app.composer.hide();
         app.cache.discussionList.refresh();
         m.route(app.route.discussion(discussion));
-      }, this.loaded.bind(this));
+        localStorage.removeItem('last-edit-title');
+        localStorage.removeItem('last-edit-text');
+      },
+      this.loaded.bind(this)
+    );
   }
 }
